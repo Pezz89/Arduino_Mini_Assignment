@@ -49,7 +49,7 @@
 \begin{document}
     \title{ECS742\\Interactive Digital Media Techniques\\Mini-Assignment 1: Arduino}
     \subtitle{\LARGE{Technical Report}}
-    \author{Sam Perry\\160842984}
+    \author{Sam Perry\\Student Number: 160842984}
     \date{}
     \maketitle
 
@@ -57,11 +57,11 @@
     Initially, a circuit was created to demonstrate the reading of values from
     the FSR (Force Sensitive Resistor).  A 5V supply was used to pass a current
     through the resistor, which was measured via analog input 0.  A 10kohm
-    pulldown resistor was conntected to ground between the FSR and the input.
+    pull-down resistor was connected to ground between the FSR and the input.
     This was necessary to avoid a direct connection between the 5V supply and
     ground at points when the FSR provides little to no resistance. This also
-    creates a consistantly low value to input when resistance from the FSR
-    is high, avoiding unpredicatbale floating readings caused by a disconected
+    creates a consistently low value to input when resistance from the FSR
+    is high, avoiding unpredictable floating readings caused by a disconnected
     input.\\
     \begin{figure}[H]
         \makebox[\textwidth]{\includegraphics[width=0.35\textwidth]{Step1}}
@@ -70,12 +70,12 @@
     Code was written to print values to the serial port. A Python script was
     used to record these values as shown:
     \begin{figure}[H]
-        \caption{Value measured over time. A sharp increase in preassure followed by a gradual release is displayed.}
+        \caption{Value measured over time. A sharp increase in pressure followed by a gradual release is displayed.}
         \makebox[\textwidth]{\includegraphics[width=0.75\textwidth]{FSR_Linearity}}
     \end{figure}
 
     From these readings it can be seen that there is a non-linear relationship
-    between applied preassure and measurement. As the voltage measured is
+    between applied pressure and measurement. As the voltage measured is
     proportional to the inverse of the FSR resistance \parencite{ada2016},
     voltage increases at what appears to be an exponentially decreasing rate as
     resistance increase at the same rate.
@@ -99,7 +99,7 @@
     5-6Khz.\\
     The instruments is capable of producing interesting melodies and has a
     tactile response. However the lack of control over amplitude and the
-    inacuracy of the resistor result in difficulties when trying to perform a
+    inaccuracy of the resistor result in difficulties when trying to perform a
     sequence of specific notes. This could be improved reducing the range of
     playable frequencies. This would allow for greater pitch accuracy at a cost
     of a lower range of possible tones.
@@ -107,8 +107,8 @@
     \section{Using buttons to make a simple keyboard}
     Buttons were then added to the instrument. This allows a user to play 8
     tones in a chromatic scale. Each button was attached to the circuit in a
-    similar fashion to that of the FSK. Pull down reseistors were used and each
-    buton was assigned a digital input, allowing the arduino to determine the
+    similar fashion to that of the FSK. Pull down resistors were used and each
+    button was assigned a digital input, allowing the arduino to determine the
     state of the button as being on (HIGH) or off (LOW). Although this method
     worked corectly, an alternative method using a "resistor ladder" is
     detailed in the arduino manual. This would allow for the same performance,
@@ -124,11 +124,25 @@
     \end{figure}
 
     The instrument is now able to play precise tones with far greater accuracy
-    than it was using the FSR. However, this comes at the cost of the tactile
-    and expressive control offered by the FSR. The limit of available notes and
-    lack of touch sensitivity make for an unintuitive playing experience.
-    \section{Adding vibrato using the FSR}
+    than was possible using the FSR. However, this comes at the cost of the
+    tactile and expressive control offered by the FSR. The limit of available
+    notes and lack of touch sensitivity make for an unintuitive playing
+    experience.
 
+    \section{Adding vibrato using the FSR}
+    Vibrato was added to the keyboard instrument by scaling the values from the
+    FSR based on the output pitch. By calculating the output pitch +/- 5\%, the
+    pitch could be modulated by scaling FSR values to within these upper and
+    lower boundaries. This allows the user to vary the pitch with the
+    expressivity of the FSR whilst maintaining a degree of accuracy from the
+    button based input. A issue arises in the FSR resting at it's lowest value,
+    forcing a player to modulate upwards from -5\% rather than beginning at the
+    pitch specified by the button. An alternative would be to start at the
+    desired frequency and bend up or down only, although this may alter the
+    pitch too far from the initial pitch. Another alternative might be to have
+    two FSRs, one for each direction. However, this would not allow for the
+    same level of smoothness around the centre frequency due to the need to
+    switch.
 
     \printbibliography
 \end{document}
