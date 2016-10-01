@@ -47,22 +47,16 @@ void loop()
     }
     // Otherwise, output a tone.
     else {
+        // Get integer value from FSR in range 0-1023
+        int sensorVal = analogRead(0);
+
+        // Calculate the offset 5% of the bend.
+        int bend = round(pitch / 100.0 * 5.0);
+
+        // Map values from the FSR to the pitch -5% to the pitch +5%
+        pitch = map(sensorVal, 0, 1023, pitch-bend, pitch+bend);
+
+        // Generate tone based on pitch +/- bend.
         tone(13,pitch,20);
     }
-    
-    // Disable FSR for now...
-    /*
-    int sensorVal = analogRead(0);
-
-    // Scale value read from between the known minimum and maximum values of
-    // the sensor, to a desired range (in Hz)
-    pitch = map(sensorVal, 0, 1023, 0, 2000);
-
-
-    // Output a tone, via digital output 13, to the speaker.
-    // The 3rd arguments represents the duration of the tone in milliseconds.
-
-    // Pause for 50 milliseconds
-    delay(50);
-    */
 }
