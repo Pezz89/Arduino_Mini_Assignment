@@ -9,21 +9,23 @@
 
 void setup()
 {
-  // initialize serial comms
-  Serial.begin(9600); 
+    // Communication with the computer is not needed in this project.
+    //Serial.begin(9600); 
 }
 
 void loop()
 {
-  // read A0
-  int val1 = analogRead(0);
-  // read A1
-  int val2 = analogRead(1);
-  // print to serial
-  Serial.print(val1);
-  Serial.print(" ");
-  Serial.print(val2);
-  Serial.print("\n");
-  // wait 
-  delay(50);
+    // Read a value from the FSR
+    int sensorVal = analogRead(0);
+
+    // Scale value read from between the known minimum and maximum values of
+    // the sensor, to a desired range (in Hz)
+    int pitch = map(sensorVal, 0, 1023, 0, 8000);
+
+    // Output a tone, via digital output 8, to the speaker.
+    // The 3rd arguments represents the duration of the tone in milliseconds.
+    tone(8,pitch,20);
+
+    // Pause for 50 milliseconds
+    delay(50);
 }
