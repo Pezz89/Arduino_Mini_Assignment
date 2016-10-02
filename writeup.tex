@@ -111,10 +111,10 @@
     button was assigned a digital input, allowing the arduino to determine the
     state of the button as being on (HIGH) or off (LOW). Although this method
     worked corectly, an alternative method using a "resistor ladder" is
-    detailed in the arduino manual. This would allow for the same performance,
-    whilst using only one analog input as opposed to the 8 digital inputs as
-    used in this implementation.
-    The arduino was then programmed to iterate across buttons until an active
+    detailed in the arduino projects book~\parencite[p.79]{arduino2015}. This
+    would allow for the same performance, whilst using only one analog input as
+    opposed to the 8 digital inputs as used in this implementation.  The
+    arduino was then programmed to iterate across buttons until an active
     button was found. An array of note frequencies would then be accessed by
     index to determine the button's note frequency. This could then be played
     through the built in tone function using the speaker.\\
@@ -137,12 +137,21 @@
     expressivity of the FSR whilst maintaining a degree of accuracy from the
     button based input. A issue arises in the FSR resting at it's lowest value,
     forcing a player to modulate upwards from -5\% rather than beginning at the
-    pitch specified by the button. An alternative would be to start at the
-    desired frequency and bend up or down only, although this may alter the
-    pitch too far from the initial pitch. Another alternative might be to have
-    two FSRs, one for each direction. However, this would not allow for the
-    same level of smoothness around the centre frequency due to the need to
-    switch.
+    pitch specified by the button. This may cause issues for a performer with
+    regards to staying in tune, as a performer would have to consistently apply
+    pressure to stay at the centre frequency of any given note. An
+    alternative would be to start at the desired frequency and bend up or down
+    only, although this may alter the pitch too far from the initial pitch.
+    Another alternative might be to have two FSRs, one for each direction.
+    However, this would not allow for the same level of smoothness around the
+    centre frequency due to the need to switch.
+
+    \section{Bonus - Melody Playback}
+    Melody playback was implemented by iterating over an array of note indexes
+    on each button press. Button state was stored in a variable to allow melody
+    position to be incremented over repeated presses of the button. Melody
+    position was reset to 0 at the end of each loop to allow for continuous
+    looping of the melody.
 
     \printbibliography
 \end{document}
